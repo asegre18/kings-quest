@@ -30,10 +30,9 @@ module.exports = {
     getStatsById: async (req, res) => {
         try {
             res.json(await db.Stats.findById(req.params.id));
-            // console.log('I AM USER._ID', req._id);
-            // console.log('I AM USER._ID', req.params.id);
+            console.log('I AM USER._ID', req.params.id);
         } catch (e) {
-            console.log('L:36 statController', e);
+            console.log('L:35 statController', e);
             res.status(401).json(e);
         }
     },
