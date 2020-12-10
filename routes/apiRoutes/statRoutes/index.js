@@ -12,8 +12,9 @@ router.route('/:id')
 .get(statController.getStatsById)
 .patch(statController.updateStatById);
 
-// router.route('/:id')
-// .patch(statController.increaseWinsById)
-// .patch(statController.increaseLossesById);
+router.route('/win/:id')
+.patch(statController.increaseWinsById);
+router.route('/loss/:id')
+.patch(statController.increaseLossesById);
 
 module.exports = router;
