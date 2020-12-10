@@ -12,4 +12,8 @@ router.route('/:id')
 .get(statController.getStatsById)
 .patch(statController.updateStatById);
 
+// router.route('/:id')
+// .patch(statController.increaseWinsById)
+// .patch(statController.increaseLossesById);
+
 module.exports = router;

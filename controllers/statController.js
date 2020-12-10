@@ -60,6 +60,34 @@ module.exports = {
             res.status(401).json(e);
         }
     },
+    // increaseWinsById: async (req, res) => {
+    //     try {
+    //         // const { wins, totalGames } = req.body;
+    //         res.json(await db.Stats.update(
+    //             { _id: req.params.id }, 
+    //             { $inc: { wins: +1, totalGames: +1 } }
+    //         ,{
+    //             new: true,
+    //         }));
+    //     } catch (e) {
+    //         console.log('L:73 statController', e);
+    //         res.status(401).json(e);
+    //     }
+    // },
+    // increaseLossesById: async (req, res) => {
+    //     try {
+    //         // const { losses, totalGames } = req.body;
+    //         res.json(await db.Stats.update(
+    //             { _id: req.params.id }, 
+    //             { $inc: { losses: +1, totalGames: +1 } }
+    //         ,{
+    //             new: true,
+    //         }));
+    //     } catch (e) {
+    //         console.log('L:87 statController', e);
+    //         res.status(401).json(e);
+    //     }
+    // },
     getAllStatsByAllUsers: async (req, res) => {
         try {
             // const allUsers = await db.User.find().populate('stats');
