@@ -23,12 +23,10 @@ const UserSchema = new Schema({
     // 0: female, 1: male, 2: prefer not to answer
   },
   stats: [ { type: Schema.Types.ObjectId, ref: 'Stats'}],
-  // avatar: {
-  //   img: {
-  //     type: Image,
-  //     required: [true, 'Please select an Avatar'],
-  //   },
-  // },
+  avatar: {
+      type: String,
+      // stores a string of the png file name of the avatar
+  },
 });
 //  static belongs to the full ORM
 UserSchema.static({

@@ -14,10 +14,10 @@ module.exports = {
     res.json(tokenForUser(req.user._id));
   },
   signUp: async (req, res) => {
-    const { email, password, nickname, gender } = req.body;
+    const { email, password, nickname, gender, avatar } = req.body;
     console.log(req.body);
     try {
-      const user = await User.create({ email, password, nickname, gender });
+      const user = await User.create({ email, password, nickname, gender, avatar });
       res.json(tokenForUser(user._id));
     } catch (e) {
       console.log(e);
