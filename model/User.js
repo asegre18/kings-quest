@@ -24,7 +24,10 @@ const UserSchema = new Schema({
   },
   stats: [ { type: Schema.Types.ObjectId, ref: 'Stats'}],
   // avatar: {
-  //   img: path to image or library,
+  //   img: {
+  //     type: Image,
+  //     required: [true, 'Please select an Avatar'],
+  //   },
   // },
 });
 //  static belongs to the full ORM
