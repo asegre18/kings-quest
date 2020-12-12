@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import { Layout, Header } from './Layout.components';
+import { Layout } from './Layout.components';
 import CardGameBoard from './CardGameBoard';
-import '.style/App.css';
+import './style/App.css';
 import Avatar from '@material-ui/core/Avatar';
 import { flexbox } from '@material-ui/system'
 

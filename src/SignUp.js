@@ -3,10 +3,9 @@ import { reduxForm, Field } from 'redux-form';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import { Button, Grid, FormLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
-import { flexbox } from '@material-ui/system';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { setViewerToken } from '../ViewerReducer';
+import { setViewerToken } from './ViewerReducer';
 // The Field components job is to render out input html
 // and pass down functions for updating the state
 // as well as check to see if the values being passed are valid

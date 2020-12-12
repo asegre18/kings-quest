@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import { Button, Grid } from '@material-ui/core';
 
-import { setViewerToken } from '../ViewerReducer';
+import { setViewerToken } from './ViewerReducer';
 // The Field components job is to render out input html
 // and pass down functions for updating the state
 // as well as check to see if the values being passed are valid

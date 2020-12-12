@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import banner from './images/banner.png';
-import './App.css';
+import './style/App.css';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
