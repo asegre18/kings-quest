@@ -1,16 +1,18 @@
-import classes from '../style/BackgroundVideo.module.css';
+
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { WrappedSignIn } from './SignIn'
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { MemoryRouter as Router } from 'react-router';
+import Link from '@material-ui/core/Link';
+
 
 const SignInButton = withStyles({
   root: {
     boxShadow: 'none',
     textTransform: 'none',
-    fontSize: 22,
-    padding: '14px 26px',
-    border: '3px solid',
+    fontSize: 16,
+    padding: '6px 12px',
+    border: '1px solid',
     lineHeight: 1.5,
     backgroundColor: '#DA2900',
     borderColor: '#B19E07',
@@ -45,9 +47,9 @@ const SignUpButton = withStyles({
     root: {
       boxShadow: 'none',
       textTransform: 'none',
-      fontSize: 22,
-      padding: '14px 26px',
-      border: '3px solid',
+      fontSize: 16,
+      padding: '6px 12px',
+      border: '1px solid',
       lineHeight: 1.5,
       backgroundColor: '#DA2900',
       borderColor: '#B19E07',
@@ -78,42 +80,13 @@ const SignUpButton = withStyles({
       },
     },
   })(Button);
-
-  const useStyles = makeStyles((theme) => ({
-    margin: {
-      margin: theme.spacing(1),
-    },
-  }));
-  
-
-const BackgroundVideo = () => {
-    const videoSource = "https://reverbdesigns.com/kqlanding.mp4"
+  export default function LinkRouter () {
     return (
-        <div className={classes.Container} >
-            <video autoPlay="autoplay" autoplay="1"  className={classes.Video} >
-                <source src={videoSource} type="video/mp4" />
-                Your browser does not support the video tag.
-            </video>
-
-            <div className={classes.Content}>
-                <div className={classes.SubContent} >
-                    
-                    
+        <Router>
                         <div>
-                    <SignInButton variant="contained" color="primary" disableRipple className={classes.margin} size="large" linkTo={WrappedSignIn} style={{
-                        marginRight    : '60px',
-                    
-                    }}>Sign In</SignInButton>
-                    <SignUpButton variant="contained" color="primary" disableRipple className={classes.margin} size="large" linkTo={WrappedSignIn} style={{
-                        marginRight    : '60px',
-                    
-                    }}>Sign Up</SignUpButton>
+                    <SignInButton size="large" variant="contained" color="secondary" > <Link component={signin}></Link>Sign In</SignInButton>
                     </div>
-                   
-                </div>
-            </div>
-        </div>
-    )
-}
-
-export default BackgroundVideo
+                    </Router>
+    );
+  }
+export default SigninSignUpButtons
