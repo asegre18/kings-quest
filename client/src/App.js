@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 // import NavTabs from "./components/NavTabs";
-import Navbar from './components/Navbar';
-import About from './components/About';
-import Discover from './components/Discover';
-import Search from './components/Search';
+import AppHead from './components/AppHead';
+import BackgroundVideo from './components/BackgroundVideo';
+import { WrappedSignIn } from './components/SignIn';
+import { WrappedSignUp } from './components/SignUp';
+import Game from './components/Game'
 
 // You can also just do the code below
 // import {
@@ -12,27 +13,21 @@ import Search from './components/Search';
 //   SignUp,
 // } from './pages';
 
-import {
-  UserContainer
-} from './pages/User';
 
-import {
-  WrappedSignUp,
-  WrappedSignIn,
-} from './pages/Viewer';
+
 
 // import Contact from "./components/pages/Contact";
 
 function App() {
   return (
     <Router>
-      <Navbar/>
+      <AppHead/>
       <Route path='/signup' component={WrappedSignUp}/>
       <Route path='/signin' component={WrappedSignIn}/>
-      <Route path="/discover" component={Discover}/>
-      <Route path="/search" component={Search}/>
-      <Route path="/users" component={UserContainer}/>
-      <Route exact path="/" component={About}/>
+      <Route path="/room" component={Game}/>
+      {/* <Route path="/search" component={Search}/>
+      <Route path="/users" component={UserContainer}/> */}
+      <Route exact path="/" component={BackgroundVideo}/>
     </Router>
   );
 }
