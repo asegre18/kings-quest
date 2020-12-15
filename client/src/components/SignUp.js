@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
-import { Button, Grid, FormLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
+import { Container, Button, Grid, FormLabel, RadioGroup, FormControlLabel, Radio, Input } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { setViewerToken } from './ViewerReducer';
+import { setViewerToken } from '../pages/Viewer';
 // The Field components job is to render out input html
 // and pass down functions for updating the state
 // as well as check to see if the values being passed are valid
@@ -61,6 +61,7 @@ class SignUp extends Component {
     const { handleSubmit } = this.props;
     return (
       <form noValidate autoComplete="off">
+        <Container maxWidth="xs">
 
         <Grid container spacing={3} direction="row" justify="space-evenly" alignItems="center">
           <Grid item xs={6}>
@@ -92,6 +93,30 @@ class SignUp extends Component {
               <FormControlLabel value="other" control={<Radio />} label="Other/Prefer not to say" />
             </RadioGroup>
           </Grid>
+          <Grid item xs={12}>
+          {/* <FormLabel component="legend">Avatar</FormLabel>
+            <Grid item xs={2}>
+              <input type="image" src="../../public/Avatars/1bOMmJI.png"></input>
+            </Grid>
+            <Grid item xs={2}>
+              <input type="image" src="../../public/Avatars/1r9b1v6.png"></input>
+            </Grid>
+            <Grid item xs={2}>
+              <input type="image" src="../../public/Avatars/2TDBDRJ.png"></input>
+            </Grid>
+            <Grid item xs={2}>
+              <input type="image" src="../../public/Avatars/1bOMmJI.png"></input>
+            </Grid>
+            <Grid item xs={2}>
+              <input type="image" src="../../public/Avatars/1bOMmJI.png"></input>
+            </Grid>
+            <Grid item xs={2}>
+              <input type="image" src="../../public/Avatars/1bOMmJI.png"></input>
+            </Grid>
+            <Grid item xs={2}>
+              <input type="image" src="../../public/Avatars/1bOMmJI.png"></input>
+            </Grid> */}
+          </Grid>
           <Grid item xs={12} flexGrow={1}>
             <Button
               onClick={ handleSubmit(this.handleSignUp) }
@@ -101,6 +126,7 @@ class SignUp extends Component {
             </Button>
           </Grid>
         </Grid>
+        </Container>
       </form>
     );
   }
