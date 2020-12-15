@@ -5,6 +5,7 @@ import AppHead from './components/AppHead';
 import BackgroundVideo from './components/BackgroundVideo';
 import { WrappedSignIn } from './components/SignIn';
 import { WrappedSignUp } from './components/SignUp';
+import Table from './components/Table';
 import Game from './components/Game'
 
 // You can also just do the code below
@@ -22,12 +23,12 @@ function App() {
   return (
     <Router>
       <AppHead/>
-      <Route path='/signup' component={WrappedSignUp}/>
-      <Route path='/signin' component={WrappedSignIn}/>
-      <Route path="/room" component={Game}/>
+      {/*<Route path='/signup' component={WrappedSignUp}/>*/}
+      {/*<Route path='/signin' component={WrappedSignIn}/>*/}
+      <Route exact path="/" component={Table}/>
       {/* <Route path="/search" component={Search}/>
       <Route path="/users" component={UserContainer}/> */}
-      <Route exact path="/" component={BackgroundVideo}/>
+      {/*<Route exact path="/" component={BackgroundVideo}/>*/}
     </Router>
   );
 }
