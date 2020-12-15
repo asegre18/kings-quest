@@ -50,5 +50,4 @@ class Deck {
 
 const playingCards = new Deck();
 
-
-export { playingCards };
+module.exports = { playingCards };

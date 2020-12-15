@@ -9,6 +9,7 @@ const useStyles = makeStyles({
     root: {
         maxWidth: 150,
         minHeight: 300,
+        backgroundColor: "red",
     },
     bullet: {
         display: 'inline-block',
