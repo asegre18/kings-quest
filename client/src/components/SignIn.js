@@ -2,7 +2,7 @@ import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid, Container } from '@material-ui/core';
 
 import { setViewerToken } from '../pages/Viewer';
 // The Field components job is to render out input html
@@ -57,7 +57,7 @@ const SignIn = (props) => {
 
   return (
     <form noValidate autoComplete="off">
-
+    <Container maxWidth="xs">
       <Grid container spacing={3} direction="row" justify="space-evenly" alignItems="center">
        <Grid item xs={6}>
           <Field
@@ -83,6 +83,7 @@ const SignIn = (props) => {
           </Button>
         </Grid>
       </Grid>
+    </Container>
     </form>
   );
 };
