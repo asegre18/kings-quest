@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
-import { Button, Grid, FormLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
+import { Button, Grid, FormLabel, RadioGroup, FormControlLabel, Radio, Input } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { setViewerToken } from './ViewerReducer';
+import { setViewerToken } from '../pages/Viewer';
 // The Field components job is to render out input html
 // and pass down functions for updating the state
 // as well as check to see if the values being passed are valid
@@ -91,6 +91,30 @@ class SignUp extends Component {
               <FormControlLabel value="male" control={<Radio />} label="Male" />
               <FormControlLabel value="other" control={<Radio />} label="Other/Prefer not to say" />
             </RadioGroup>
+          </Grid>
+          <Grid item xs={12}>
+          <FormLabel component="legend">Avatar</FormLabel>
+            <Grid item xs={2}>
+              <Input type="image" src="../../public/Avatars/1bOMmJI.png"></Input>
+            </Grid>
+            <Grid item xs={2}>
+              <Input type="image" src="../../public/Avatars/1r9b1v6.png"></Input>
+            </Grid>
+            <Grid item xs={2}>
+              <Input type="image" src="../../public/Avatars/2TDBDRJ.png"></Input>
+            </Grid>
+            <Grid item xs={2}>
+              <Input type="image" src="../../public/Avatars/1bOMmJI.png"></Input>
+            </Grid>
+            <Grid item xs={2}>
+              <Input type="image" src="../../public/Avatars/1bOMmJI.png"></Input>
+            </Grid>
+            <Grid item xs={2}>
+              <Input type="image" src="../../public/Avatars/1bOMmJI.png"></Input>
+            </Grid>
+            <Grid item xs={2}>
+              <Input type="image" src="../../public/Avatars/1bOMmJI.png"></Input>
+            </Grid>
           </Grid>
           <Grid item xs={12} flexGrow={1}>
             <Button

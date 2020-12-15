@@ -1,5 +1,6 @@
 import React from 'react';
-import { WrappedSignIn, WrappedSignUp } from './forms';
+import { WrappedSignIn } from './SignIn';
+import { WrappedSignUp } from './SignUp';
 import { Container, Grid } from '@material-ui/core';
 
 
