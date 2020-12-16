@@ -3,7 +3,7 @@ import { reduxForm, Field } from 'redux-form';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
-
+import { useDispatch } from 'react-redux';
 import { setViewerToken } from '../ViewerReducer';
 // The Field components job is to render out input html
 // and pass down functions for updating the state
@@ -40,7 +40,7 @@ const TextFieldInput = ({ input, meta, label }) => {
 // to the function that it's calling
 const SignIn = (props) => {
   const { handleSubmit, history } = props;
-
+  const dispatch = useDispatch();
   console.log(props);
   const handleSignIn = async (formValues, dispatch) => {
     console.log(formValues);

@@ -1,7 +1,10 @@
 import classes from '../style/BackgroundVideo.module.css';
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import { WrappedSignIn } from './SignIn'
+import {
+  WrappedSignUp,
+  WrappedSignIn,
+} from '../pages/Viewer';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Link } from '@material-ui/core'
 
@@ -98,7 +101,8 @@ const BackgroundVideo = () => {
 
             <div className={classes.Content}>
                 <div className={classes.SubContent} >
-                    
+                  
+
                     
                         <div>
                     <SignInButton variant="contained" color="primary" disableRipple className={classes.margin} size="large" linkTo={WrappedSignIn} style={{
