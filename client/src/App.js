@@ -26,7 +26,7 @@ function App() {
       <AppHead/>
       <Route path='/signup' component={WrappedSignUp}/>
       <Route path='/signin' component={WrappedSignIn}/>
-      <Route exact path="/" component={Table}/>
+      {/* <Route exact path="/" component={Table}/> */}
       <Route exact path="/" component={BackgroundVideo}/>
     </Router>
   );

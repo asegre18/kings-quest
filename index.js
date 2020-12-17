@@ -26,64 +26,64 @@ const server = http.createServer(app);
 const io = require('socket.io')(server);
 
 
-// GAME LOGIC
-let players = [];
+// // GAME LOGIC
+// let players = [];
 
-const deck = playingCards.shuffle();
+// const deck = playingCards.shuffle();
 
-let current_turn = 0;
-let timeOut;
-let _turn = 0;
-const MAX_WAITING = 10000;
+// let current_turn = 0;
+// let timeOut;
+// let _turn = 0;
+// const MAX_WAITING = 10000;
 
-function next_turn(){
-  let card;
-  _turn = current_turn++ % players.length;
-  players[_turn-1]?.emit('stop_turn');
-  if (deck.deck.length === 0) {
-    deck.reset();
-  }
-  card = deck.deal();
+// function next_turn(){
+//   let card;
+//   _turn = current_turn++ % players.length;
+//   players[_turn-1].emit('stop_turn');
+//   if (deck.deck.length === 0) {
+//     deck.reset();
+//   }
+//   card = deck.deal();
 
-  console.log('player: ', _turn,'card:', card, 'next card on deck:', deck.deck[deck.deck.length-1]);
+//   console.log('player: ', _turn,'card:', card, 'next card on deck:', deck.deck[deck.deck.length-1]);
 
-  players[_turn]?.emit('your_turn', card);
-  // tell clients to rerender
-  console.log("next turn triggered " , _turn);
-  triggerTimeout();
-}
-function triggerTimeout(){
-  timeOut = setTimeout(()=>{
-    next_turn();
-  },MAX_WAITING);
-}
-function resetTimeOut(){
-  if(typeof timeOut === 'object'){
-    console.log("timeout reset");
-    clearTimeout(timeOut);
-  }
-}
-io.on('connection', function(socket) {
-  next_turn();
-  console.log('A player connected');
-  players.push(socket);
-  console.log("A number of players now ", players.length);
-  socket.on('done_turn', function () {
+//   players[_turn]?.emit('your_turn', card);
+//   // tell clients to rerender
+//   console.log("next turn triggered " , _turn);
+//   triggerTimeout();
+// }
+// function triggerTimeout(){
+//   timeOut = setTimeout(()=>{
+//     next_turn();
+//   },MAX_WAITING);
+// }
+// function resetTimeOut(){
+//   if(typeof timeOut === 'object'){
+//     console.log("timeout reset");
+//     clearTimeout(timeOut);
+//   }
+// }
+// io.on('connection', function(socket) {
+//   next_turn();
+//   console.log('A player connected');
+//   players.push(socket);
+//   console.log("A number of players now ", players.length);
+//   socket.on('done_turn', function () {
 
-    if (players[_turn] == socket) {
-      resetTimeOut();
-      next_turn();
-    }
-  });
+//     if (players[_turn] == socket) {
+//       resetTimeOut();
+//       next_turn();
+//     }
+//   });
 
-  socket.on('disconnect', function () {
-    console.log('A player disconnected');
-    players.splice(players.indexOf(socket), 1);
-    _turn--;
-    console.log("A number of players now ", players.length);
-  });
+//   socket.on('disconnect', function () {
+//     console.log('A player disconnected');
+//     players.splice(players.indexOf(socket), 1);
+//     _turn--;
+//     console.log("A number of players now ", players.length);
+//   });
 
-});
+// });
 
 
 
