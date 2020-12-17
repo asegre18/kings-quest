@@ -12,7 +12,6 @@ class Game extends Component {
   render() {
     return (
       <div className="App">
-        <ButtonAppBar></ButtonAppBar>
         <Layout>
           <CardGameBoard />
         </Layout>

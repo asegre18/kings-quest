@@ -34,7 +34,7 @@ const deck = playingCards.shuffle();
 let current_turn = 0;
 let timeOut;
 let _turn = 0;
-const MAX_WAITING = 10000;
+const MAX_WAITING = 20000;
 
 function next_turn(){
   let card;
@@ -48,6 +48,10 @@ function next_turn(){
   console.log('player: ', _turn,'card:', card, 'next card on deck:', deck.deck[deck.deck.length-1]);
 
   players[_turn] ? players[_turn].emit('your_turn', card) : null;
+  // send card to the client socket
+  io.emit('cardToClient', card);
+  // handles the rule from client
+  handleRule();
   // tell clients to rerender
   console.log("next turn triggered " , _turn);
   triggerTimeout();
@@ -63,6 +67,14 @@ function resetTimeOut(){
     clearTimeout(timeOut);
   }
 }
+
+// not console logging commented out to start working on the actual gameboard
+function handleRule(){
+  io.on('ruleToServer', (rule) => {
+    console.log('RULE', rule);
+  });
+}
+
 io.on('connection', function(socket) {
   next_turn();
   // console.log('SOCKET ID', {[socket.id]: socket});
@@ -70,17 +82,11 @@ io.on('connection', function(socket) {
   players.push(socket);
   console.log("A number of players now ", players.length);
   socket.on('done_turn', function () {
-
     if (players[_turn] == socket) {
       resetTimeOut();
       next_turn();
     }
   });
-
-  // sending message to single play by ID
-  // socket.emit('card2 pulled', () => {
-  //   console.log(socket.id);
-  // });
 
   socket.on('disconnect', function () {
     console.log('A player disconnected');

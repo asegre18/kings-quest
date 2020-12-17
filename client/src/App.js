@@ -27,6 +27,7 @@ function App() {
       <Route path='/signup' component={WrappedSignUp}/>
       <Route path='/signin' component={WrappedSignIn}/>
       <Route path="/game" component={Table}/>
+      <Route path="/gameScreen" component={Game}/>
       <Route exact path="/" component={BackgroundVideo}/>
     </Router>
   );
