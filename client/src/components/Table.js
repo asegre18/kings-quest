@@ -32,6 +32,8 @@ const Table = () => {
             setTurn(turn === 1 ? turn - 1 : turn);
         });
 
+        // socket.on('card2 pulled')
+
 
         socket.on('serverToClient', function(first, second, third) {
 
