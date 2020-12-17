@@ -125,19 +125,17 @@ export default function ButtonAppBar() {
               >
                 Sign Out
               </Button> :
-              <div>
+              <div style={{
+                marginLeft : '100px'
+              }}>
                 <SignUpButton
                   to='/signup'
                   component={Link}
                   color="inherit">
                   Sign Up
                 </SignUpButton>
-                <SignInButton
-                  to='/signin'
-                  component={Link}
-                  color="inherit">
-                  Sign In
-                </SignInButton>
+                
+              
               </div>
           }
          
@@ -147,7 +145,16 @@ export default function ButtonAppBar() {
                     marginLeft  : 'auto',
                     marginRight : 'auto'
                 }} alt="kings quets banner" width="250px" display height="70px" margin-left="30%"></img>
-            
+             <div style={{
+                  marginLeft : '100px',
+                  marginRight : '50px'
+                }}><SignInButton 
+                  to='/signin'
+                  component={Link}
+                  color="inherit">
+                  Sign In
+                </SignInButton>
+              </div>
          <NotificationsActiveIcon/>
           <Button color="inherit">Quit</Button>
         </Toolbar>
