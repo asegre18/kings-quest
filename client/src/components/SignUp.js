@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
-import { Container, Button, Grid, FormLabel, RadioGroup, FormControlLabel, Radio, Input } from '@material-ui/core';
+import { Container, Button, Grid, FormLabel, RadioGroup, FormControlLabel, FormControl, Radio, Input } from '@material-ui/core';
 import { connect } from 'react-redux';
+import  { input, select, textarea } from 'react';
 import { compose } from 'redux';
 import { setViewerToken } from '../pages/Viewer';
+
+// const  { DOM: { input, select, textarea } } = React;
 // The Field components job is to render out input html
 // and pass down functions for updating the state
 // as well as check to see if the values being passed are valid
@@ -42,15 +45,18 @@ const TextFieldInput = ({ input, meta, label }) => {
 class SignUp extends Component {
 
   handleSignUp = async (formValues) => {
-    console.log(formValues);
+    // e.preventDefault();
+    console.log('form value', formValues);
+    // console.log(this.props);
     //{ username: 'Your enterereduseRName', password: 'your password' }
     try {
       const res = await axios.post('/auth/signup', formValues);
       console.log('I AM THE SIGNUP USERS TOKEN', res.data);
       localStorage.setItem('token', res.data);
       this.props.setViewerToken(res.data);
-      this.props.history.push('/users');
-      // sessionStorage.setItem('token', res.data);
+      // reset path to game screen
+      this.props.history.push('/');
+      sessionStorage.setItem('token', res.data);
     } catch (e) {
       throw new Error(e);
     }
@@ -86,12 +92,12 @@ class SignUp extends Component {
             />
           </Grid>
           <Grid item xs={12}>
-            <FormLabel component="legend">Gender</FormLabel>
-            <RadioGroup row defaultValue="female" aria-label="gender" name="customized-radios">
-              <FormControlLabel value="female" control={<Radio />} label="Female" />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
-              <FormControlLabel value="other" control={<Radio />} label="Other/Prefer not to say" />
-            </RadioGroup>
+              <label>Gender</label>
+              <div>
+                <label><Field name="gender" component='input' type="radio" value={0} /> Male</label>
+                <label><Field name="gender" component='input'  type="radio" value={1} /> Female</label>
+                <label><Field name="gender" component='input'  type="radio" value={2} /> Other/Prefer not to say</label>
+              </div>
           </Grid>
           <Grid item xs={12}>
           {/* <FormLabel component="legend">Avatar</FormLabel>
