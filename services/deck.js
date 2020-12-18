@@ -1,15 +1,11 @@
-import image1 from '../../public/Gifs/2.gif';
-import image2 from '../../public/Gifs/3clubs.gif';
-import image3 from '../../public/Gifs/3diamonds.gif';
-import image4 from '../../public/Gifs/3spades.gif';
-import image5 from '../../public/Gifs/4spades.gif';
-import image6 from '../../public/Gifs/4hearts.gif';
-import image7 from '../../public/Gifs/4diamonds.gif';
-import image8 from '../../public/Gifs/4clubs.gif';
-import image9 from '../../public/Gifs/5.gif';
-import image10 from '../../public/Gifs/6.gif';
-const images = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10];
-
+const clubs2 = '../client/public/cards/2clubs.gif';
+const diamonds2 = '../client/public/cards/2diamonds.gif';
+const hearts1 = 'http://reverbdesigns.com/AceHearts.gif';
+const hearts2 = '../client/public/cards/2hearts.gif';
+const hearts3 = '../client/public/cards/3hearts.gif';
+const hearts4 = '../client/public/cards/4hearts.gif';
+const hearts5 = '../client/public/cards/5hearts.gif';
+const images = [ hearts1, hearts2, hearts3, hearts4, hearts5, clubs2, diamonds2, ];
 
 class Card {
     constructor() {
@@ -24,7 +20,7 @@ class Deck {
     constructor() {
         this.deck = [];
         this.reset();
-        this.shuffle();
+        // this.shuffle();
         this.deal();
     }
 
@@ -39,6 +35,7 @@ class Deck {
                 var card = new Card();
                 card.suit = suits[suit];
                 card.visVal = visVal[value];
+                card.image = images[value];
                 this.deck.push(card);
             }
         }
@@ -63,5 +60,6 @@ class Deck {
 }
 
 const playingCards = new Deck();
+console.log(playingCards);
 
 module.exports = { playingCards };
