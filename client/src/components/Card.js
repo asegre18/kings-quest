@@ -7,9 +7,11 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: 150,
-        minHeight: 300,
-        backgroundColor: "red",
+        minWidth: 600,
+        minHeight: 400,
+        backgroundColor: "grey",
+        margin: 'auto',
+        display: 'flex',
     },
     bullet: {
         display: 'inline-block',
@@ -22,6 +24,18 @@ const useStyles = makeStyles({
     pos: {
         marginBottom: 12,
     },
+    marginAutoContainer: {
+        width: 600,
+        height: 400,
+        display: 'flex',
+      },
+      alignItemsAndJustifyContent: {
+        width: 600,
+        height: 400,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
 });
 
 export const PlayingCard = (props) => {
@@ -29,6 +43,7 @@ export const PlayingCard = (props) => {
     const classes = useStyles();
 
     return (
+        <div className={classes.marginAutoContainer}>
         <Card className={classes.root}>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -39,5 +54,6 @@ export const PlayingCard = (props) => {
                 </Typography>
             </CardContent>
         </Card>
+        </div>
     );
 }

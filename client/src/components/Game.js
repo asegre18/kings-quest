@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
 import { Layout } from './Layout.components';
-import CardGameBoard from './CardGameBoard';
+// import CardGameBoard from './CardGameBoard';
 import '../style/App.css';
 import Avatar from '@material-ui/core/Avatar';
 import { flexbox } from '@material-ui/system'
+import { PlayingCard } from './Card';
 
 import ButtonAppBar from './AppHead';
 
@@ -13,7 +14,7 @@ class Game extends Component {
     return (
       <div className="App">
         <Layout>
-          <CardGameBoard />
+          <PlayingCard />
         </Layout>
         <Avatar style={{
           margin: 'auto',
