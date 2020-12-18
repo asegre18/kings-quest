@@ -147,13 +147,12 @@ const Table = () => {
                  socket.emit('done_turn');
                  setTurn(turn === 1 ? turn - 1 : turn);
              }}
-            >Send MEssage</button>
+            >Send Message</button>
             {turn === 1 ?
-                <PlayingCard suit={currentCard.suit} num={currentCard.visVal}/>
+                <PlayingCard suit={currentCard.suit} num={currentCard.visVal} image={currentCard.image}/>
                 : null}
         </div>
     );
 }
-
 
 export default Table;

@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import CardMedia from '@material-ui/core/CardMedia';
 
 const useStyles = makeStyles({
     root: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles({
         width: 600,
         height: 400,
         display: 'flex',
+        margin: 'auto',
       },
       alignItemsAndJustifyContent: {
         width: 600,
@@ -35,6 +37,11 @@ const useStyles = makeStyles({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+      },
+      media: {
+        width: 600,
+        height: 400,
+        display: 'flex',
       },
 });
 
@@ -52,6 +59,12 @@ export const PlayingCard = (props) => {
                 <Typography variant="h5" component="h2">
                     {props.num}
                 </Typography>
+                {/* add images to card below */}
+                <CardMedia
+                    className={classes.media}
+                    image={props.image}
+                    title='Card'
+                    />
             </CardContent>
         </Card>
         </div>
