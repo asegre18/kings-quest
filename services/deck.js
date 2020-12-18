@@ -1,4 +1,3 @@
-const diamonds2 = '../client/public/cards/2diamonds.gif';
 // hearts
 const hearts1 = 'http://reverbdesigns.com/AceHearts.gif';
 const hearts2 = 'http://reverbdesigns.com/2hearts.gif';
@@ -91,12 +90,16 @@ class Deck {
         const suits = ['Hearts', 'Spades', 'Clubs', 'Diamonds'];
         const visVal = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,];
 
+        let count = 0;
+
         for (let suit in suits) {
             for (let value in visVal) {
                 var card = new Card();
                 card.suit = suits[suit];
                 card.visVal = visVal[value];
-                card.image = images[value];
+                // double check this logic try adding if statements to add 13 to value
+                card.image = images[count];
+                count++;
                 this.deck.push(card);
             }
         }
