@@ -26,7 +26,7 @@ const server = http.createServer(app);
 const io = require('socket.io')(server);
 
 
-// GAME LOGIC
+// // GAME LOGIC
 let players = [];
 
 const deck = playingCards.shuffle();
@@ -34,12 +34,12 @@ const deck = playingCards.shuffle();
 let current_turn = 0;
 let timeOut;
 let _turn = 0;
-const MAX_WAITING = 10000;
+const MAX_WAITING = 20000;
 
 function next_turn(){
   let card;
   _turn = current_turn++ % players.length;
-  players[_turn-1]?.emit('stop_turn');
+  // players[_turn].emit('stop_turn');
   if (deck.deck.length === 0) {
     deck.reset();
   }
@@ -47,7 +47,11 @@ function next_turn(){
 
   console.log('player: ', _turn,'card:', card, 'next card on deck:', deck.deck[deck.deck.length-1]);
 
-  players[_turn]?.emit('your_turn', card);
+  players[_turn] ? players[_turn].emit('your_turn', card) : null;
+  // send card to the client socket
+  io.emit('cardToClient', card);
+  // handles the rule from client
+  handleRule();
   // tell clients to rerender
   console.log("next turn triggered " , _turn);
   triggerTimeout();
@@ -63,13 +67,21 @@ function resetTimeOut(){
     clearTimeout(timeOut);
   }
 }
+
+// not console logging commented out to start working on the actual gameboard
+function handleRule(){
+  io.on('ruleToServer', (rule) => {
+    console.log('RULE', rule);
+  });
+}
+
 io.on('connection', function(socket) {
   next_turn();
+  // console.log('SOCKET ID', {[socket.id]: socket});
   console.log('A player connected');
   players.push(socket);
   console.log("A number of players now ", players.length);
   socket.on('done_turn', function () {
-
     if (players[_turn] == socket) {
       resetTimeOut();
       next_turn();
@@ -99,32 +111,32 @@ io.on('connection', function(socket) {
 
 
 
-  // socket welcome: adds player to array
+//   // socket welcome: adds player to array
   // socket.on('clientToServerWelcome', (players) => {
-  //
-  //
+  
+  
   //   socket.emit('serverToClientPlayersArray', players);
   // })
-  //
-  // socket.emit('serverToClient', 'hello', 'from', 'the server side');
-  // socket.on('salutations', (msg) => {
-  //   console.log(msg);
-  // })
-  //
-  // socket.on('clientToServerIHeardyou', function(first, second, third) {
-  //   socket.emit('clientToServerIHeardyou', 'hello', 'from', 'the client side');
-  // })
-  //
-  // socket.on('clientToServerSendMessage', (data) => {
-  //   chatArr.push(data);
-  //
-  //   socket.emit('serverToClientMessageSaved', chatArr);
-  // })
-  // socket.on('clientToServerFetchMessages', (cb) => {
-    // cb(chatArr);
-  // });
-//
-//
+  
+//   socket.emit('serverToClient', 'hello', 'from', 'the server side');
+//   socket.on('salutations', (msg) => {
+//     console.log(msg);
+//   })
+  
+//   socket.on('clientToServerIHeardyou', function(first, second, third) {
+//     socket.emit('clientToServerIHeardyou', 'hello', 'from', 'the client side');
+//   })
+  
+//   socket.on('clientToServerSendMessage', (data) => {
+//     chatArr.push(data);
+  
+//     socket.emit('serverToClientMessageSaved', chatArr);
+//   })
+//   socket.on('clientToServerFetchMessages', (cb) => {
+//     cb(chatArr);
+//   });
+
+
 // });
 
 if (process.env.NODE_ENV === 'production') {

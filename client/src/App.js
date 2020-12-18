@@ -28,7 +28,12 @@ function App() {
       <AppHead/>
       <Route path='/signup' component={WrappedSignUp}/>
       <Route path='/signin' component={WrappedSignIn}/>
+<<<<<<< HEAD
       {/* <Route exact path="/" component={Table}/> */}
+=======
+      <Route path="/game" component={Table}/>
+      <Route path="/gameScreen" component={Game}/>
+>>>>>>> dedb1b80fedfe8698d21a102624332f7a38db6f0
       <Route exact path="/" component={BackgroundVideo}/>
     </Router>
   );

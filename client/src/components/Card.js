@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CardMedia from '@material-ui/core/CardMedia';
+<<<<<<< HEAD
 import Lightbox from 'react-image-lightbox'
 import image1 from '../../public/Gifs/2.gif';
 import image2 from '../../public/Gifs/3clubs.gif';
@@ -21,6 +22,16 @@ const useStyles = makeStyles({
     root: {
         maxWidth: 600,
         minHeight: 400,
+=======
+
+const useStyles = makeStyles({
+    root: {
+        minWidth: 600,
+        minHeight: 400,
+        backgroundColor: "grey",
+        margin: 'auto',
+        display: 'flex',
+>>>>>>> dedb1b80fedfe8698d21a102624332f7a38db6f0
     },
     media: {
         height: 0,
@@ -37,6 +48,24 @@ const useStyles = makeStyles({
     pos: {
         marginBottom: 12,
     },
+    marginAutoContainer: {
+        width: 600,
+        height: 400,
+        display: 'flex',
+        margin: 'auto',
+      },
+      alignItemsAndJustifyContent: {
+        width: 600,
+        height: 400,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      media: {
+        width: 600,
+        height: 400,
+        display: 'flex',
+      },
 });
 
 export const PlayingCard = (props) => {
@@ -68,6 +97,7 @@ export const PlayingCard = (props) => {
             }));
         
     return (
+        <div className={classes.marginAutoContainer}>
         <Card className={classes.root}>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -76,6 +106,7 @@ export const PlayingCard = (props) => {
                 <Typography variant="h5" component="h2">
                     {props.num}
                 </Typography>
+<<<<<<< HEAD
               
                 <Lightbox
           mainSrc={images[this.state.index]}
@@ -83,6 +114,15 @@ export const PlayingCard = (props) => {
           prevSrc={
             images[(this.state.index + images.length - 1) % images.length]
           }></Lightbox>
+=======
+                {/* add images to card below */}
+                <CardMedia
+                    className={classes.media}
+                    image={props.image}
+                    title='Card'
+                    />
+>>>>>>> dedb1b80fedfe8698d21a102624332f7a38db6f0
             </CardContent>
         </Card>
+        </div>
     );
