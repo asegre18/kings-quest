@@ -97,7 +97,6 @@ class Deck {
                 var card = new Card();
                 card.suit = suits[suit];
                 card.visVal = visVal[value];
-                // double check this logic try adding if statements to add 13 to value
                 card.image = images[count];
                 count++;
                 this.deck.push(card);
