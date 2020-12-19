@@ -5,14 +5,19 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CardMedia from '@material-ui/core/CardMedia';
+import { shadows } from '@material-ui/system';
+import Box from '@material-ui/core/Box';
+import Avatar from '@material-ui/core/Avatar';
+
 
 const useStyles = makeStyles({
     root: {
-        minWidth: 600,
+        minWidth: 690,
         minHeight: 400,
-        backgroundColor: "grey",
+        bgcolor: "background.paper",
         margin: 'auto',
         display: 'flex',
+
     },
     bullet: {
         display: 'inline-block',
@@ -26,22 +31,23 @@ const useStyles = makeStyles({
         marginBottom: 12,
     },
     marginAutoContainer: {
-        width: 600,
+        width: 700,
         height: 400,
         display: 'flex',
         margin: 'auto',
       },
       alignItemsAndJustifyContent: {
-        width: 600,
+        width: 700,
         height: 400,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
       },
       media: {
-        width: 600,
+        width: 700,
         height: 400,
-        display: 'flex',
+        paddingRight: '5%,',
+        backgroundPosition: 'unset',
       },
 });
 
@@ -51,22 +57,34 @@ export const PlayingCard = (props) => {
 
     return (
         <div className={classes.marginAutoContainer}>
+            <Box boxShadow={3} className={classes.marginAutoContainer}>
         <Card className={classes.root}>
             <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                <Typography className={classes.title} color="textSecondary" gutterBottom style={{
+                    display: 'none',
+                }}>
                     {props.suit}
                 </Typography>
-                <Typography variant="h5" component="h2">
+                <Typography variant="h5" component="h2"  style={{
+                    display: 'none',
+                }}>
                     {props.num}
                 </Typography>
                 {/* add images to card below */}
                 <CardMedia
-                    className={classes.media}
+                    
                     image={props.image}
                     title='Card'
+                    style={{
+                       
+                        width: 680,
+                      height: 400,
+                      backgroundPosition: 'unset',
+                    }}
                     />
             </CardContent>
         </Card>
+        </Box>
         </div>
     );
 }

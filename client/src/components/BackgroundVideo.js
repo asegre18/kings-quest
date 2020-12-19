@@ -39,4 +39,4 @@ const BackgroundVideo = () => {
     )
 }
 
-export default BackgroundVideogit
+export default BackgroundVideo

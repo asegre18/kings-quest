@@ -15,6 +15,12 @@ class Game extends Component {
       <div className="App">
         <Layout>
           <PlayingCard />
+          <Avatar style={{
+          margin: 'auto',
+          marginTop: '30px',
+          backgroundColor: '#3F51B5',
+          fontSize: '.6em'
+         }} > Player 1</Avatar>
         </Layout>
         <Avatar style={{
           margin: 'auto',
