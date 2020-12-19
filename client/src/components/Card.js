@@ -72,11 +72,9 @@ export const PlayingCard = (props) => {
                 </Typography>
                 {/* add images to card below */}
                 <CardMedia
-                    
                     image={props.image}
                     title='Card'
                     style={{
-                       
                         width: 680,
                       height: 400,
                       backgroundPosition: 'unset',

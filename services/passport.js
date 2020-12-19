@@ -5,11 +5,16 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 const { User } = require('../model');
 
+// manually set username field that local strategy looks for and sets it to look for email instead
+const localOptions = {
+  usernameField: 'email'
+}
+
 // Done is similar
 // takes 2 parameters
 // the 1st is an error or an error object
 // the 2nd is the user you found or null if you dont find one
-const localStrategy = new LocalStrategy(async (email, password, done) => {
+const localStrategy = new LocalStrategy( localOptions, async (email, password, done) => {
 //  Find a user with some given criteria
   //   if an error happened when you tried to find that user
   //   call done like this done(err, null);
