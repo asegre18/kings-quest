@@ -10,7 +10,7 @@ const tokenForUser = (id) => {
 
 module.exports = {
   signIn: (req, res) => {
-    console.log('I AM THE LOGGED IN USER', req.user);
+      console.log('I AM THE LOGGED IN USER', req.user);
     res.json(tokenForUser(req.user._id));
   },
   signUp: async (req, res) => {
