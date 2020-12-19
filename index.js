@@ -34,11 +34,12 @@ const deck = playingCards.shuffle();
 let current_turn = 0;
 let timeOut;
 let _turn = 0;
-const MAX_WAITING = 15000;
+const MAX_WAITING = 5000;
 
 function next_turn(){
   let card;
   _turn = current_turn++ % players.length;
+  console.log(current_turn, _turn);
   // players[_turn].emit('stop_turn');
   if (deck.deck.length === 0) {
     deck.reset();
@@ -46,21 +47,26 @@ function next_turn(){
   card = deck.deal();
 
   // console.log('player: ', _turn,'card:', card, 'next card on deck:', deck.deck[deck.deck.length-1]);
-
-  players[_turn] ? players[_turn].emit('your_turn', card) : null;
+  // console.log(players[_turn] ? players[_turn].id : "empty game");
+  players[_turn] ? io.to(players[_turn].id).emit('your_turn', [card, players[_turn].id, _turn]) : null;
   // send card to the client socket
   io.emit('cardToClient', card);
-  // handles the rule from client
-  // io.on('ruleToServer', (rule) => {
-  //   console.log('RULE', rule);
-  // });
+  // Let player make choices
+  // setTimeout(() => {
+  //   console.log('PLAYER TURN RUNNING');
+  // }, MAX_WAITING);
+  io.on('ruleToServer', (rule) => {
+    io.to(players[_turn].id).emit('stop_turn', [card, players[_turn].id, _turn])
+  });
   // tell clients to rerender
   // console.log("next turn triggered " , _turn);
+  // resetTimeOut();
   triggerTimeout();
 }
 function triggerTimeout(){
   timeOut = setTimeout(()=>{
     next_turn();
+    console.log('timeout');
   },MAX_WAITING);
 }
 function resetTimeOut(){
@@ -81,15 +87,24 @@ io.on('connection', function(socket) {
   console.log('A player connected');
   players.push(socket);
   console.log("A number of players now ", players.length);
-  socket.on('done_turn', function () {
-    if (players[_turn] == socket) {
-      resetTimeOut();
-      next_turn();
-      socket.on('ruleToServer', (rule) => {
-        console.log('RULE', rule);
-      });
-    }
-  });
+  if (players[_turn] == socket) {
+    socket.on('ruleToServer', (rule) => {
+      console.log('RULE', rule);
+
+
+    });
+  }
+  // socket.on('next_turn', function () {
+  //   //Emitted by client button press
+  //   //start timeout (15 seconds)
+  //   //should calculate the rule, send all sockets the rule
+  //   //
+  //
+  //
+  //
+  //
+  //
+  // });
 
   socket.on('disconnect', function () {
     console.log('A player disconnected');

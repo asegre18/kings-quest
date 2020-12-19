@@ -5,11 +5,12 @@ import io from 'socket.io-client';
 const socket = io();
 
 const Table = () => {
-
+    const [order, setOrder] = useState(0);
     const [currentCard, setCurrentCard] = useState({});
+    const [currentRule, setCurrentRule] = useState(0)
     const [turn, setTurn] = useState(0);
     const [showCard, setShowCard] = useState(0);
-
+    console.log("isturn", turn);
     useEffect(() => {
         // socket welcome: adds player to array
         socket.emit('clientToServerWelcome', 'username');
@@ -21,12 +22,6 @@ const Table = () => {
 
         // logic for switch case rules
 
-        const ruleSetter = (card) => {
-            console.log(card.visVal, card.suit);
-            socket.emit('ruleToServer', card.visVal);
-            console.log(currentCard);
-            setCurrentCard(currentCard.rule = 0);
-        }
 
 // send info from the card deck in the server to the client
 // receiving the card back into a function (card) => {}
@@ -35,9 +30,10 @@ const Table = () => {
 // console log card
         socket.on('cardToClient', (card) => {
 
-            setCurrentCard(currentCard.rule = card.visVal);
+            setCurrentCard(card);
+            // setTurn(1);
             console.log(card);
-            console.log("Card: ", currentCard);
+            console.log("Rule: ", currentRule);
 
             switch(card.visVal) {
                 case 1:
@@ -82,15 +78,20 @@ const Table = () => {
             }
         })
 
-        socket.on('your_turn', (card) => {
-            console.log('myturn');
+        socket.on('your_turn', ([card, player, trn]) => {
+            console.log(player, ": ", trn);
+
+
             setCurrentCard(card);
-            setTurn(turn + 1);
+            setTurn(1);
+
         });
 
+
+        //
         socket.on('stop_turn', () => {
             console.log('notmyturn');
-            setTurn(turn === 1 ? turn - 1 : turn);
+            setTurn(0);
         });
 
         // socket.on('card2 pulled')
@@ -130,26 +131,37 @@ const Table = () => {
 
         return function () {
             console.log('Im leaving');
-            socket.removeListener('serverToClientMessageSent');
-            socket.removeListener('yee');
+            socket.removeListener('your_turn');
+            socket.removeListener('stop_turn');
             socket.removeListener('helloWorld');
         }
     }, []);
 
+    const ruleSetter = (card) => {
+        console.log(card.visVal, card.suit);
+        socket.emit('ruleToServer', card.visVal);
+        console.log(currentCard);
+        setCurrentRule(card.visVal);
+        setTurn(0);
+    }
+
+    const onClick = (currentCard) => {
+        console.log(currentCard);
+    }
+
 
     return (
+
         <div>
             <br/>
             <br/>
-            <button
-             onClick={ () => {
-                 socket.emit('done_turn');
-                 setTurn(turn === 1 ? turn - 1 : turn);
-             }}
-            >Send Message</button>
+            {turn === 0 ? <button
+                onClick={ onClick(currentCard)}
+            >Pull Card</button> : null}
             {turn === 1 ?
                 <PlayingCard suit={currentCard.suit} num={currentCard.visVal} image={currentCard.image}/>
                 : null}
+            {turn === 0 ? <p>Other User pulled a: {currentRule}</p> : null}
         </div>
     );
 }
