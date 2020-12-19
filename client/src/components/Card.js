@@ -31,7 +31,7 @@ const useStyles = makeStyles({
         marginBottom: 12,
     },
     marginAutoContainer: {
-        width: 700,
+        width: 710,
         height: 400,
         display: 'flex',
         margin: 'auto',
