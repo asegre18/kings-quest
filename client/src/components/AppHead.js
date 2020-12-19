@@ -61,45 +61,45 @@ const SignInButton = withStyles({
   },
 })(Button);
 const SignUpButton = withStyles({
-    root: {
+  root: {
+    boxShadow: 'none',
+    textTransform: 'none',
+    fontSize: 22,
+    padding: '14px 26px',
+    border: '3px solid',
+    lineHeight: 1.5,
+    backgroundColor: '#DA2900',
+    borderColor: '#B19E07',
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:hover': {
+      backgroundColor: '#A7940A',
+      borderColor: '#502419',
       boxShadow: 'none',
-      textTransform: 'none',
-      fontSize: 22,
-      padding: '14px 26px',
-      border: '3px solid',
-      lineHeight: 1.5,
-      backgroundColor: '#DA2900',
-      borderColor: '#B19E07',
-      fontFamily: [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-      ].join(','),
-      '&:hover': {
-        backgroundColor: '#A7940A',
-        borderColor: '#502419',
-        boxShadow: 'none',
-      },
-      '&:active': {
-        boxShadow: 'none',
-        backgroundColor: '#BBAA38',
-        borderColor: '#BBAA38',
-      },
-      '&:focus': {
-        boxShadow: '0 0 0 0.2rem rgba(187,170,56,.5)',
-      },
     },
-  })(Button);
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '#BBAA38',
+      borderColor: '#BBAA38',
+    },
+    '&:focus': {
+      boxShadow: '0 0 0 0.2rem rgba(187,170,56,.5)',
+    },
+  },
+})(Button);
 
- 
-  
+
+
 export default function ButtonAppBar() {
   const classes = useStyles();
   const { token } = useSelector(state => state.viewer);
@@ -114,19 +114,19 @@ export default function ButtonAppBar() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-       
+
         <Toolbar>
-       
+
           {
             token ?
               <Button
                 color='inherit'
-                onClick={ handleSignOut}
+                onClick={handleSignOut}
               >
                 Sign Out
               </Button> :
               <div style={{
-                marginLeft : '100px'
+                marginLeft: '100px'
               }}>
                 <SignUpButton
                   to='/signup'
@@ -134,29 +134,37 @@ export default function ButtonAppBar() {
                   color="inherit">
                   Sign Up
                 </SignUpButton>
-                
-              
+
+
               </div>
           }
-         
-          <img src={banner} style={{ 
-                    float       : 'none', 
-                    width       : '270px',
-                    marginLeft  : 'auto',
-                    marginRight : 'auto'
-                }} alt="kings quets banner" width="250px" display height="70px" margin-left="30%"></img>
-             <div style={{
-                  marginLeft : '100px',
-                  marginRight : '50px'
-                }}><SignInButton 
+
+          <img src={banner} style={{
+            float: 'none',
+            width: '270px',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }} alt="kings quets banner" width="250px" display height="70px" margin-left="30%"></img>
+          <div style={{
+            marginLeft: '100px',
+            marginRight: '50px'
+          }}>
+            {
+              token ?
+                <Button
+                  to='/game'
+                  component={Link}
+                  color="inherit">
+                  Join Game
+                  </Button> :
+                <SignInButton
                   to='/signin'
                   component={Link}
                   color="inherit">
                   Sign In
                 </SignInButton>
-              </div>
-         <NotificationsActiveIcon/>
-          <Button color="inherit">Quit</Button>
+            }
+          </div>
         </Toolbar>
       </AppBar>
     </div>
