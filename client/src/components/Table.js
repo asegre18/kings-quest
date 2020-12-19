@@ -6,7 +6,7 @@ const socket = io();
 
 const Table = () => {
 
-    const [currentCard, setCurrentCard] = useState('');
+    const [currentCard, setCurrentCard] = useState({});
     const [turn, setTurn] = useState(0);
     const [showCard, setShowCard] = useState(0);
 
@@ -21,64 +21,63 @@ const Table = () => {
 
         // logic for switch case rules
 
+        const ruleSetter = (card) => {
+            console.log(card.visVal, card.suit);
+            socket.emit('ruleToServer', card.visVal);
+            console.log(currentCard);
+            setCurrentCard(currentCard.rule = 0);
+        }
+
 // send info from the card deck in the server to the client
 // receiving the card back into a function (card) => {}
-// inside that will be if, card.visval for each number 
+// inside that will be if, card.visval for each number
 // switch case instead of if statements
 // console log card
         socket.on('cardToClient', (card) => {
+
+            setCurrentCard(currentCard.rule = card.visVal);
+            console.log(card);
+            console.log("Card: ", currentCard);
+
             switch(card.visVal) {
                 case 1:
-                    console.log("Ace", card.visVal);
-                    socket.emit('ruleToServer', card.visVal);
-                break; 
+                    ruleSetter(card);
+                break;
                 case 2:
-                    console.log("Two", card.visVal);
-                    socket.emit('ruleToServer', card.visVal);
+                    ruleSetter(card);
                 break;
                 case 3:
-                    console.log("Three", card.visVal);
-                    socket.emit('ruleToServer', card.visVal);
+                    ruleSetter(card);
                 break;
                 case 4:
-                    console.log("Four", card.visVal);
-                    socket.emit('ruleToServer', card.visVal);
+                    ruleSetter(card);
                 break;
                 case 5:
-                    console.log("Five", card.visVal);
-                    socket.emit('ruleToServer', card.visVal);
+                    ruleSetter(card);
                 break;
                 case 6:
-                    console.log("Six", card.visVal);
-                    socket.emit('ruleToServer', card.visVal);
+                    ruleSetter(card);
                 break;
                 case 7:
-                    console.log("Seven", card.visVal);
-                    socket.emit('ruleToServer', card.visVal);
+                    ruleSetter(card);
                 break;
                 case 8:
-                    console.log("Eight", card.visVal);
-                    socket.emit('ruleToServer', card.visVal);
+                    ruleSetter(card);
                 break;
                 case 9:
-                    console.log("Nine", card.visVal);
-                    socket.emit('ruleToServer', card.visVal);
+                    ruleSetter(card);
                 break;
                 case 10:
-                    console.log("Ten", card.visVal);
-                    socket.emit('ruleToServer', card.visVal);
+                    ruleSetter(card);
                 break;
                 case 11:
-                    console.log("Jack/Eleven", card.visVal);
-                    socket.emit('ruleToServer', card.visVal);
+                    ruleSetter(card);
                 break;
                 case 12:
-                    console.log("Queen/Twelve", card.visVal);
-                    socket.emit('ruleToServer', card.visVal);
+                    ruleSetter(card);
                 break;
                 case 13:
-                    console.log("King/Twelve", card.visVal);
-                    socket.emit('ruleToServer', card.visVal);
+                    ruleSetter(card);
                 break;
             }
         })
