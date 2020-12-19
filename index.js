@@ -34,7 +34,7 @@ const deck = playingCards.shuffle();
 let current_turn = 0;
 let timeOut;
 let _turn = 0;
-const MAX_WAITING = 20000;
+const MAX_WAITING = 15000;
 
 function next_turn(){
   let card;
@@ -45,15 +45,17 @@ function next_turn(){
   }
   card = deck.deal();
 
-  console.log('player: ', _turn,'card:', card, 'next card on deck:', deck.deck[deck.deck.length-1]);
+  // console.log('player: ', _turn,'card:', card, 'next card on deck:', deck.deck[deck.deck.length-1]);
 
   players[_turn] ? players[_turn].emit('your_turn', card) : null;
   // send card to the client socket
   io.emit('cardToClient', card);
   // handles the rule from client
-  handleRule();
+  // io.on('ruleToServer', (rule) => {
+  //   console.log('RULE', rule);
+  // });
   // tell clients to rerender
-  console.log("next turn triggered " , _turn);
+  // console.log("next turn triggered " , _turn);
   triggerTimeout();
 }
 function triggerTimeout(){
@@ -69,11 +71,9 @@ function resetTimeOut(){
 }
 
 // not console logging commented out to start working on the actual gameboard
-function handleRule(){
-  io.on('ruleToServer', (rule) => {
-    console.log('RULE', rule);
-  });
-}
+// function handleRule(){
+//
+// }
 
 io.on('connection', function(socket) {
   next_turn();
@@ -85,6 +85,9 @@ io.on('connection', function(socket) {
     if (players[_turn] == socket) {
       resetTimeOut();
       next_turn();
+      socket.on('ruleToServer', (rule) => {
+        console.log('RULE', rule);
+      });
     }
   });
 
@@ -113,23 +116,23 @@ io.on('connection', function(socket) {
 
 //   // socket welcome: adds player to array
   // socket.on('clientToServerWelcome', (players) => {
-  
-  
+
+
   //   socket.emit('serverToClientPlayersArray', players);
   // })
-  
+
 //   socket.emit('serverToClient', 'hello', 'from', 'the server side');
 //   socket.on('salutations', (msg) => {
 //     console.log(msg);
 //   })
-  
+
 //   socket.on('clientToServerIHeardyou', function(first, second, third) {
 //     socket.emit('clientToServerIHeardyou', 'hello', 'from', 'the client side');
 //   })
-  
+
 //   socket.on('clientToServerSendMessage', (data) => {
 //     chatArr.push(data);
-  
+
 //     socket.emit('serverToClientMessageSaved', chatArr);
 //   })
 //   socket.on('clientToServerFetchMessages', (cb) => {
