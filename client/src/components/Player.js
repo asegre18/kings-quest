@@ -1,6 +1,10 @@
+import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
+import { AvatarLayout } from './Layout.components';
+import Box from '@material-ui/core/Box';
+import { shadows } from '@material-ui/system';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,4 +23,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default avatar
+class Player extends React.Component {
+  render() {
+    return (
+          <div className={AvatarLayout}>
+            <Box boxShadow={3}> Dummy</Box>
+</div>
+    );}
+}
+export default Player

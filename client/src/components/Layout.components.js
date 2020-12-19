@@ -24,4 +24,12 @@ const CardLayout = styled.div`
   height: 30%;
 `;
 
-export { Layout, Header, CardLayout };
+const AvatarLayout = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 75%;
+  margin bottom: 5%;
+  height: 60px;
+`;
+
+export { Layout, Header, CardLayout, AvatarLayout };
