@@ -9,7 +9,7 @@ import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import banner from '../images/banner.png';
 import '../style/App.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { setViewerToken, setUserData } from '../pages/Viewer';
+import { setViewerToken, setViewerNickname, setViewerGender } from '../pages/Viewer';
 import { Link, useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -109,8 +109,10 @@ export default function ButtonAppBar() {
   const handleSignOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('nickname');
+    localStorage.removeItem('gender');
     dispatch(setViewerToken(null));
-    dispatch(setUserData(null));
+    dispatch(setViewerNickname(null));
+    dispatch(setViewerGender(null));
     history.push('/');
   };
   return (
