@@ -12,15 +12,15 @@ const Table = () => {
     const [showCard, setShowCard] = useState(0);
     const playerNickname = localStorage.getItem('nickname');
 
-    // let playersArray = [{
-    //   name: "Allie",
-    //   turnNum: 0},
-    //   {name: "Jordan",
-    //   turnNum: 1},
-    //   {name: "Andrew",
-    //   turnNum: 0},
-    //   {name: "Kojin",
-    //   turnNum: 0} ];
+    let playersArray = [{
+      name: "Allie",
+      turnNum: 0},
+      {name: "Jordan",
+      turnNum: 1},
+      {name: "Andrew",
+      turnNum: 0},
+      {name: "Kojin",
+      turnNum: 0} ];
 
     useEffect(() => {
         // socket welcome: adds player to array
