@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PlayingCard } from "./Card";
 import io from 'socket.io-client';
+import {Container, Grid, List, ListItem, ListItemText } from '@material-ui/core';
 // import TextField from "@material-ui/core/TextField";
 const socket = io();
 
@@ -9,14 +10,25 @@ const Table = () => {
     const [currentCard, setCurrentCard] = useState({});
     const [turn, setTurn] = useState(0);
     const [showCard, setShowCard] = useState(0);
+    const playerNickname = localStorage.getItem('nickname');
+
+    let playersArray = [{
+      name: "Allie",
+      turnNum: 0},
+      {name: "Jordan",
+      turnNum: 1},
+      {name: "Andrew",
+      turnNum: 0},
+      {name: "Kojin",
+      turnNum: 0} ];
 
     useEffect(() => {
         // socket welcome: adds player to array
-        socket.emit('clientToServerWelcome', 'username');
+        socket.emit('clientToServerWelcome', playerNickname);
 
         socket.on('serverToClientPlayersArray', (players) => {
             console.log(players)
-
+            // playersArray.push(players);
         });
 
         // logic for switch case rules
@@ -138,18 +150,36 @@ const Table = () => {
 
 
     return (
-        <div>
-            <br/>
-            <br/>
+            <div>
+              <Container maxWidth="xl">
+              <Grid>
+                <Grid item xs={3}>
+            <List component="nav" aria-label="contacts">
+            {playersArray?.map(player => {
+                    return (
+                        <ListItem style={{backgroundColor: `${player.turnNum === 1 ? "rgba(187, 72, 72, 0.49)" : "white"}`}}> 
+                            <ListItemText primary={player.name}/>
+                        </ListItem>
+                        
+                    );
+                })
+            }
+        </List>
+        </Grid>
+
             <button
              onClick={ () => {
                  socket.emit('done_turn');
                  setTurn(turn === 1 ? turn - 1 : turn);
              }}
             >Send Message</button>
+
             {turn === 1 ?
                 <PlayingCard suit={currentCard.suit} num={currentCard.visVal} image={currentCard.image}/>
                 : null}
+
+                </Grid>
+                </Container>
         </div>
     );
 }
