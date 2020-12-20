@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 //  Action types, Action creators, another file for your reducer
 const INITIAL_STATE = {
   token:!!localStorage.getItem('token') ? localStorage.getItem('token') : null,
+  nickname:!!localStorage.getItem('nickname') ? localStorage.getItem('nickname') : null,
 };
 
 const viewerSlice = createSlice({
@@ -24,6 +25,12 @@ const viewerSlice = createSlice({
         token: action.payload,
       };
     },
+    setUserData: (state, action) => {
+      return {
+        ...state,
+        nickname: action.payload,
+      }
+    }
   },
 });
 
@@ -31,6 +38,7 @@ const viewerSlice = createSlice({
 
 export const {
   setViewerToken,
+  setUserData,
 } = viewerSlice.actions;
 
 export const viewerReducer = viewerSlice.reducer;

@@ -6,7 +6,7 @@ import { Container, Button, Grid, FormLabel, RadioGroup, FormControlLabel, FormC
 import { connect } from 'react-redux';
 import  { input, select, textarea } from 'react';
 import { compose } from 'redux';
-import { setViewerToken } from '../pages/Viewer';
+import { setViewerToken, setUserData } from '../pages/Viewer';
 
 // const  { DOM: { input, select, textarea } } = React;
 // The Field components job is to render out input html
@@ -53,6 +53,7 @@ class SignUp extends Component {
       const res = await axios.post('/auth/signup', formValues);
       console.log('I AM THE SIGNUP USERS TOKEN', res.data);
       localStorage.setItem('token', res.data);
+      localStorage.setItem('nickname', formValues.nickname);
       this.props.setViewerToken(res.data);
       // reset path to game screen
       this.props.history.push('/');
