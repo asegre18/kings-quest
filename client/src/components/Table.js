@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { PlayingCard } from "./Card";
+import React, {useEffect, useState} from 'react';
+import {PlayingCard} from "./Card";
 import io from 'socket.io-client';
-import {Container, Grid, List, ListItem, ListItemText } from '@material-ui/core';
+import {Container, Grid, List, ListItem, ListItemText, Snackbar} from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
+import { makeStyles } from '@material-ui/core/styles';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 // import TextField from "@material-ui/core/TextField";
 const socket = io();
 
@@ -9,46 +16,60 @@ const Table = () => {
 
     const [currentCard, setCurrentCard] = useState({});
     const [isTurn, setIsTurn] = useState(false);
+    const [isDrink, setIsDrink] = useState(false);
+    const [isSelecting, setIsSelecting] = useState(false);
     const [turn, setTurn] = useState(0);
     const [showCard, setShowCard] = useState(0);
     const [playerArr, setPlayerArr] = useState([]);
+    const [sock, setSock] = useState('');
     const playerNickname = localStorage.getItem('nickname') || 'kojin';
 
     let playersArray = [{
-      name: "Allie",
-      turnNum: 0},
-      {name: "Jordan",
-      turnNum: 1},
-      {name: "Andrew",
-      turnNum: 0},
-      {name: "Kojin",
-      turnNum: 0} ];
+        name: "Allie",
+        turnNum: 0
+    },
+        {
+            name: "Jordan",
+            turnNum: 1
+        },
+        {
+            name: "Andrew",
+            turnNum: 0
+        },
+        {
+            name: "Kojin",
+            turnNum: 0
+        }];
 
     useEffect(() => {
         // socket welcome: adds player to array
         socket.emit('clientToServerWelcome', playerNickname);
         // updates players on client
-        socket.on('serverToClientUpdatePlayers', (players) => {
-            console.log(players)
+        socket.on('serverToClientUpdateInfo', ([players, socketId]) => {
+            console.log(players, socketId);
             setPlayerArr(players);
+            setSock(socketId);
         });
 
         // connection to see whose turn it is
-        socket.on('not_your_turn', (msg) => {
-
+        socket.on('not_your_turn', ([_turn, card]) => {
+            console.log('other player drew:', card);
+            setCurrentCard(card);
+            setIsDrink(true);
             setIsTurn(false);
 
         })
 
         // connection to wait for turn
         socket.on('your_turn', (msg) => {
+            setIsDrink(false);
             // Client side log displaying card
             setIsTurn(true);
-            console.log("my turn: ",msg);
+            console.log("my turn: ", msg);
             setCurrentCard(msg);
-        //     wait,
+            //     wait,
 
-        //    return rule to server
+            //    return rule to server
         })
 
         // logic for switch case rules
@@ -56,109 +77,8 @@ const Table = () => {
         const ruleSetter = (card) => {
             console.log(card.visVal, card.suit);
             socket.emit('ruleToServer', card.visVal);
-            console.log(currentCard);
-            setCurrentCard(currentCard.rule = 0);
         }
 
-// send info from the card deck in the server to the client
-// receiving the card back into a function (card) => {}
-// inside that will be if, card.visval for each number
-// switch case instead of if statements
-// console log card
-        socket.on('cardToClient', (card) => {
-
-            setCurrentCard(currentCard.rule = card.visVal);
-            console.log(card);
-            console.log("Card: ", currentCard);
-
-            switch(card.visVal) {
-                case 1:
-                    ruleSetter(card);
-                break;
-                case 2:
-                    ruleSetter(card);
-                break;
-                case 3:
-                    ruleSetter(card);
-                break;
-                case 4:
-                    ruleSetter(card);
-                break;
-                case 5:
-                    ruleSetter(card);
-                break;
-                case 6:
-                    ruleSetter(card);
-                break;
-                case 7:
-                    ruleSetter(card);
-                break;
-                case 8:
-                    ruleSetter(card);
-                break;
-                case 9:
-                    ruleSetter(card);
-                break;
-                case 10:
-                    ruleSetter(card);
-                break;
-                case 11:
-                    ruleSetter(card);
-                break;
-                case 12:
-                    ruleSetter(card);
-                break;
-                case 13:
-                    ruleSetter(card);
-                break;
-            }
-        })
-
-        // socket.on('your_turn', (card) => {
-        //     console.log('myturn');
-        //     setCurrentCard(card);
-        //     setTurn(turn + 1);
-        // });
-
-        // socket.on('stop_turn', () => {
-        //     console.log('notmyturn');
-        //     setTurn(isTurn === 1 ? isTurn - 1 : isTurn);
-        // });
-
-        // socket.on('card2 pulled')
-
-
-        // socket.on('serverToClient', function(first, second, third) {
-
-        //     socket.emit('clientToServerIHeardyou', 'hello', 'from', 'the client side');
-
-        // })
-
-
-
-        // socket.on('serverToClientMessageSaved', (charArr) => {
-        //     console.log(charArr)
-
-        // })
-
-
-
-        // socket.on('serverToClientMessageSent', (chatArr) => {
-        //     console.log(chatArr);
-        //     setChatMessages(chatArr);
-        // });
-        //
-        // socket.on('helloWorld', (string) => {
-        //     console.log(string);
-        // });
-        //
-        // socket.on('yee', (string) => {
-        //     console.log(string);
-        // });
-        //
-        // socket.emit('clientToServerFetchMessages', messages => {
-        //     setChatMessages(messages);
-        // });
 
         return function () {
             console.log('Im leaving');
@@ -168,37 +88,105 @@ const Table = () => {
         }
     }, []);
 
+    const renderClickableList = () => {
+        console.log();
+    }
+
+    const renderSnack = () => {
+        return (<div>
+            <Snackbar open={isDrink} autoHideDuration={3000}>
+                <Alert severity="success">
+                    Drink!
+                </Alert>
+            </Snackbar>
+        </div>)
+    }
+
+    const renderSwitch = (card) => {
+        console.log(card.visVal);
+        switch(card.visVal) {
+            case 1:
+                // ruleSetter(card);
+
+               renderSnack();
+            case 2:
+                // setIsSelecting(true);
+                renderSnack();
+            case 3:
+                renderSnack();
+            case 4:
+                renderSnack();
+            case 5:
+                renderSnack();
+            case 6:
+                renderSnack();
+            case 7:
+                renderSnack();
+            case 8:
+                // setIsSelecting(true);
+                renderSnack();
+            case 9:
+                renderSnack();
+            case 10:
+                renderSnack();
+            case 11:
+                renderSnack();
+            case 12:
+                renderSnack();
+            case 13:
+                renderSnack();
+        }
+    }
+
 
     return (
-            <div>
-              <Container maxWidth="xl">
-              <Grid>
-                <Grid item xs={3}>
-            <List component="nav" aria-label="contacts">
-            {playerArr?.map(player => {
-                    return (
-                        <ListItem style={{backgroundColor: `${isTurn ? "rgba(187, 72, 72, 0.49)" : "white"}`}}>
-                            <ListItemText primary={player.nickname}/>
-                        </ListItem>
+        <div>
+            <Container maxWidth="xl">
+                <Grid>
+                    <Grid item xs={3}>
+                        <List component="nav" aria-label="contacts">
+                            {playerArr?.map(player => {
+                                if (player.socketId === sock) {
+                                    return (
+                                        <ListItem
+                                            style={{backgroundColor: "rgba(187, 72, 72, 0.49)"}}>
+                                            <ListItemText primary={player.nickname}/>
+                                        </ListItem>
+                                    )
+                                } else {
+                                    return (
+                                        <ListItem
+                                            style={{backgroundColor: 'white'}}>
+                                            <ListItemText primary={player.nickname}/>
+                                            {
+                                                isSelecting && isTurn ? <button>Send Drink</button> : <button disabled>Send Drink</button>
+                                            }
+                                        </ListItem>
+                                        )
+                                }
+                            }
+                            )
+                            }
 
-                    );
-                })
-            }
-        </List>
-        </Grid>
+                        </List>
+                        <div>
+                            {isTurn ? null : renderSwitch(currentCard)}
+                        </div>
+                    </Grid>
 
-            <button
-             onClick={ () => {
-                 socket.emit('resetTimer');
-             }}
-            >Send Message</button>
+                    <button
+                        onClick={() => {
+                            socket.emit('resetTimer');
+                        }}
+                    >Send Message
+                    </button>
 
-            {isTurn ?
-                <PlayingCard suit={currentCard.suit} num={currentCard.visVal} image={currentCard.image}/>
-                : null}
+                    {isTurn ?
+                        <PlayingCard suit={currentCard.suit} num={currentCard.visVal} image={currentCard.image}/>
+                        : null}
 
                 </Grid>
-                </Container>
+            </Container>
         </div>
     );
 }

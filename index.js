@@ -35,7 +35,7 @@ let current_turn = 0;
 let timeOut;
 let _turn = 0;
 let card;
-const MAX_WAITING = 15000;
+const MAX_WAITING = 10000;
 
 function next_turn(){
         _turn = current_turn++ % players.length;
@@ -48,7 +48,7 @@ function next_turn(){
             console.log(players[_turn]);
             let nonPlayers = players.filter(player => player != players[_turn])
             for (let i = 0; i < nonPlayers.length; i++) {
-                io.to(nonPlayers[i].socketId).emit('not_your_turn', _turn);
+                io.to(nonPlayers[i].socketId).emit('not_your_turn', [_turn, card]);
             }
             io.to(players[_turn]?.socketId).emit('your_turn', card);
         }
@@ -92,48 +92,11 @@ io.on('connection', socket => {
         console.log("Added: ", newPlayer);
         console.log("A number of players now ", players.length);
         // send players
-        io.emit('serverToClientUpdatePlayers', players);
+        io.emit('serverToClientUpdateInfo', [players, socket.id]);
 
 
-        // Turn Logi
     })
 
-
-
-
-
-    // let card;
-    // _turn = current_turn++ % players.length;
-    // // players[_turn].emit('stop_turn');
-    //
-    //
-    // // console.log('player: ', _turn,'card:', card, 'next card on deck:', deck.deck[deck.deck.length-1]);
-    //
-    // players[_turn] ? players[_turn].emit('your_turn', card) : null;
-    // // send card to the client socket
-    // io.emit('cardToClient', card);
-    // // handles the rule from client
-    // // io.on('ruleToServer', (rule) => {
-    // //   console.log('RULE', rule);
-    // // });
-    // // tell clients to rerender
-    // // console.log("next turn triggered " , _turn);
-    // ON client to Server welcome, create a more indepth player object,
-    // which will be appended to the player array.
-
-
-    // next_turn();
-    // console.log('SOCKET ID', {[socket.id]: socket});
-
-    // socket.on('done_turn', function () {
-    //   if (players[_turn].socket === socket) {
-    //     resetTimeOut();
-    //     next_turn();
-    //     socket.on('ruleToServer', (rule) => {
-    //       console.log('RULE', rule);
-    //     });
-    //   }
-    // });
 
     socket.on('disconnect', function () {
         console.log('A player disconnected');
