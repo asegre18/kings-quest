@@ -8,9 +8,11 @@ const socket = io();
 const Table = () => {
 
     const [currentCard, setCurrentCard] = useState({});
+    const [isTurn, setIsTurn] = useState(false);
     const [turn, setTurn] = useState(0);
     const [showCard, setShowCard] = useState(0);
-    const playerNickname = localStorage.getItem('nickname');
+    const [playerArr, setPlayerArr] = useState([]);
+    const playerNickname = localStorage.getItem('nickname') || 'kojin';
 
     let playersArray = [{
       name: "Allie",
@@ -25,11 +27,29 @@ const Table = () => {
     useEffect(() => {
         // socket welcome: adds player to array
         socket.emit('clientToServerWelcome', playerNickname);
-
-        socket.on('serverToClientPlayersArray', (players) => {
+        // updates players on client
+        socket.on('serverToClientUpdatePlayers', (players) => {
             console.log(players)
-            // playersArray.push(players);
+            setPlayerArr(players);
         });
+
+        // connection to see whose turn it is
+        socket.on('not_your_turn', (msg) => {
+
+            setIsTurn(false);
+
+        })
+
+        // connection to wait for turn
+        socket.on('your_turn', (msg) => {
+            // Client side log displaying card
+            setIsTurn(true);
+            console.log("my turn: ",msg);
+            setCurrentCard(msg);
+        //     wait,
+
+        //    return rule to server
+        })
 
         // logic for switch case rules
 
@@ -94,16 +114,16 @@ const Table = () => {
             }
         })
 
-        socket.on('your_turn', (card) => {
-            console.log('myturn');
-            setCurrentCard(card);
-            setTurn(turn + 1);
-        });
+        // socket.on('your_turn', (card) => {
+        //     console.log('myturn');
+        //     setCurrentCard(card);
+        //     setTurn(turn + 1);
+        // });
 
-        socket.on('stop_turn', () => {
-            console.log('notmyturn');
-            setTurn(turn === 1 ? turn - 1 : turn);
-        });
+        // socket.on('stop_turn', () => {
+        //     console.log('notmyturn');
+        //     setTurn(isTurn === 1 ? isTurn - 1 : isTurn);
+        // });
 
         // socket.on('card2 pulled')
 
@@ -143,7 +163,7 @@ const Table = () => {
         return function () {
             console.log('Im leaving');
             socket.removeListener('serverToClientMessageSent');
-            socket.removeListener('yee');
+            socket.removeListener('your_turn');
             socket.removeListener('helloWorld');
         }
     }, []);
@@ -155,12 +175,12 @@ const Table = () => {
               <Grid>
                 <Grid item xs={3}>
             <List component="nav" aria-label="contacts">
-            {playersArray?.map(player => {
+            {playerArr?.map(player => {
                     return (
-                        <ListItem style={{backgroundColor: `${player.turnNum === 1 ? "rgba(187, 72, 72, 0.49)" : "white"}`}}> 
-                            <ListItemText primary={player.name}/>
+                        <ListItem style={{backgroundColor: `${isTurn ? "rgba(187, 72, 72, 0.49)" : "white"}`}}>
+                            <ListItemText primary={player.nickname}/>
                         </ListItem>
-                        
+
                     );
                 })
             }
@@ -169,12 +189,11 @@ const Table = () => {
 
             <button
              onClick={ () => {
-                 socket.emit('done_turn');
-                 setTurn(turn === 1 ? turn - 1 : turn);
+                 socket.emit('resetTimer');
              }}
             >Send Message</button>
 
-            {turn === 1 ?
+            {isTurn ?
                 <PlayingCard suit={currentCard.suit} num={currentCard.visVal} image={currentCard.image}/>
                 : null}
 
