@@ -9,7 +9,7 @@ const hearts7 = 'http://reverbdesigns.com/7hearts.gif';
 const hearts8 = 'http://reverbdesigns.com/8hearts.gif';
 const hearts9 = 'http://reverbdesigns.com/9hearts.gif';
 // rest of heart gifs still being made
-const hearts10 = 'http://reverbdesigns.com/10.gif';
+const hearts10 = 'http://reverbdesigns.com/10Hearts.gif';
 const hearts11 = 'http://reverbdesigns.com/JackHearts.gif';
 const hearts12 = 'http://reverbdesigns.com/QueenHearts.gif';
 const hearts13 = 'http://reverbdesigns.com/KingHearts.gif';
@@ -24,7 +24,7 @@ const spades7 = 'http://reverbdesigns.com/7spades.gif';
 const spades8 = 'http://reverbdesigns.com/8spades.gif';
 const spades9 = 'http://reverbdesigns.com/9spades.gif';
 // rest of spade gifs still being made
-const spades10 = 'http://reverbdesigns.com/10.gif';
+const spades10 = 'http://reverbdesigns.com/10Spades.gif';
 const spades11 = 'http://reverbdesigns.com/JackSpades.gif';
 const spades12 = 'http://reverbdesigns.com/QueenSpades.gif';
 const spades13 = 'http://reverbdesigns.com/KingSpades.gif';
@@ -39,7 +39,7 @@ const clubs7 = 'http://reverbdesigns.com/7clubs.gif';
 const clubs8 = 'http://reverbdesigns.com/8clubs.gif';
 const clubs9 = 'http://reverbdesigns.com/9clubs.gif';
 // rest of club gifs still being made
-const clubs10 = 'http://reverbdesigns.com/10.gif';
+const clubs10 = 'http://reverbdesigns.com/10Clubs.gif';
 const clubs11 = 'http://reverbdesigns.com/JackClubs.gif';
 const clubs12 = 'http://reverbdesigns.com/QueenClubs.gif';
 const clubs13 = 'http://reverbdesigns.com/KingClubs.gif';
@@ -54,7 +54,7 @@ const diamonds7 = 'http://reverbdesigns.com/7diamonds.gif';
 const diamonds8 = 'http://reverbdesigns.com/8diamonds.gif';
 const diamonds9 = 'http://reverbdesigns.com/9diamonds.gif';
 // rest of diamond gifs still being made
-const diamonds10 = 'http://reverbdesigns.com/10.gif';
+const diamonds10 = 'http://reverbdesigns.com/10Diamonds.gif';
 const diamonds11 = 'http://reverbdesigns.com/JackDiamonds.gif';
 const diamonds12 = 'http://reverbdesigns.com/QueenDiamonds.gif';
 const diamonds13 = 'http://reverbdesigns.com/KingDiamonds.gif';
