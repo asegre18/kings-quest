@@ -47,7 +47,7 @@ const Table = () => {
             setIsDrink(false);
             setIsTurn(false);
             setRule(card.visVal);
-            iDrink(rule.visVal);
+            iDrink(card.visVal, false);
         })
 
         // connection to wait for turn
@@ -59,7 +59,7 @@ const Table = () => {
             console.log("my turn: ", msg);
             setCurrentCard(msg);
             setRule(msg.visVal);
-            iDrink(msg.visVal);
+            iDrink(msg.visVal, true);
         })
 
         // logic for switch case rules
@@ -78,7 +78,7 @@ const Table = () => {
     }, []);
 
 
-    const iDrink = (rule) => {
+    const iDrink = (rule, turn) => {
         switch (rule) {
             case 1:
                 // everyone drink
@@ -92,32 +92,55 @@ const Table = () => {
                 break;
             case 3:
                 // self drink
-                setIsDrink(true);
+                console.log(turn);
+                if (turn !== false) {
+                    setIsDrink(true);
+                    break;
+                }
                 break;
 
             case 4:
             // *hit down key
+                console.log(turn);
+                if (turn) {
+                    socket.emit('clientToServerRandom');
+                }
                 break;
             case 5:
                 // guys
-                setIsDrink(true);
+                if (gender === 0) {
+                    setIsDrink(true);
+                }
                 break;
 
             case 6:
                 // chicks
-                setIsDrink(true);
+                if (gender === 1) {
+                    setIsDrink(true);
+                }
                 break;
             case 7:
             // *hit up key
+                console.log(turn);
+                if (turn) {
+                    socket.emit('clientToServerRandom');
+                }
                 break;
             case 8:
                 // pick someone to drink
-                setIsDrink(true);
+                if (turn) {
+                    setIsDrink(true);
+                }
+
                 setIsSelecting(true);
                 break;
 
             case 9:
             // *hit left key
+                console.log(turn);
+                if (turn) {
+                    socket.emit('clientToServerRandom');
+                }
                 break;
 
             case 10:
@@ -127,6 +150,10 @@ const Table = () => {
 
             case 11:
             // *hit right key
+                console.log(turn);
+                if (turn) {
+                    socket.emit('clientToServerRandom');
+                }
                 break;
 
             case 12:
@@ -136,6 +163,10 @@ const Table = () => {
 
             case 13:
             // *lowest amount of drinks
+                console.log(turn);
+                if (turn) {
+                    socket.emit('clientToServerRandom');
+                }
                 break;
         }
         // console.log(card.visVal, card.suit);

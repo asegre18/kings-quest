@@ -103,6 +103,12 @@ io.on('connection', socket => {
 
     });
 
+    socket.on('clientToServerRandom', () => {
+        let randomPlayer = players[Math.floor(players.length * Math.random())].socketId;
+        console.log(randomPlayer);
+        io.to(randomPlayer).emit('serverToClientDrink');
+    });
+
     socket.on('disconnect', function () {
         console.log('A player disconnected');
         players.splice(players.indexOf(socket), 1);
