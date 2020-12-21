@@ -6,7 +6,7 @@ import { Container, Button, Grid, FormLabel, RadioGroup, FormControlLabel, FormC
 import { connect } from 'react-redux';
 import  { input, select, textarea } from 'react';
 import { compose } from 'redux';
-import { setViewerToken, setUserData } from '../pages/Viewer';
+import { setViewerToken } from '../pages/Viewer';
 
 // const  { DOM: { input, select, textarea } } = React;
 // The Field components job is to render out input html
@@ -54,6 +54,7 @@ class SignUp extends Component {
       console.log('I AM THE SIGNUP USERS TOKEN', res.data);
       localStorage.setItem('token', res.data);
       localStorage.setItem('nickname', formValues.nickname);
+      localStorage.setItem('gender', formValues.gender);
       this.props.setViewerToken(res.data);
       // reset path to game screen
       this.props.history.push('/');

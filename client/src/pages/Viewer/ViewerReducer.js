@@ -4,6 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const INITIAL_STATE = {
   token:!!localStorage.getItem('token') ? localStorage.getItem('token') : null,
   nickname:!!localStorage.getItem('nickname') ? localStorage.getItem('nickname') : null,
+  gender:!!localStorage.getItem('gender') ? localStorage.getItem('gender') : null,
 };
 
 const viewerSlice = createSlice({
@@ -25,10 +26,16 @@ const viewerSlice = createSlice({
         token: action.payload,
       };
     },
-    setUserData: (state, action) => {
+    setViewerNickname: (state, action) => {
       return {
         ...state,
         nickname: action.payload,
+      }
+    },
+    setViewerGender: (state, action) => {
+      return {
+        ...state,
+        gender: action.payload,
       }
     }
   },
@@ -38,7 +45,8 @@ const viewerSlice = createSlice({
 
 export const {
   setViewerToken,
-  setUserData,
+  setViewerNickname,
+  setViewerGender,
 } = viewerSlice.actions;
 
 export const viewerReducer = viewerSlice.reducer;

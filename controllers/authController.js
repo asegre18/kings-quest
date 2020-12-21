@@ -11,7 +11,7 @@ const tokenForUser = (id) => {
 module.exports = {
   signIn: (req, res) => {
     console.log('I AM THE LOGGED IN USER', req.user);
-    res.json({token: tokenForUser(req.user._id), nickname: req.user.nickname});
+    res.json({token: tokenForUser(req.user._id), nickname: req.user.nickname, gender: req.user.gender});
   },
   signUp: async (req, res) => {
     const { email, password, nickname, gender, avatar } = req.body;
