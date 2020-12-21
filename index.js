@@ -51,7 +51,7 @@ function next_turn(){
             for (let i = 0; i < nonPlayers.length; i++) {
                 io.to(nonPlayers[i].socketId).emit('not_your_turn', [_turn, card]);
             }
-            io.to(players[_turn]?.socketId).emit('your_turn', card);
+            io.to(players[_turn].socketId).emit('your_turn', card);
         }
   triggerTimeout();
 }
