@@ -93,11 +93,15 @@ io.on('connection', socket => {
         console.log("Added: ", newPlayer);
         console.log("A number of players now ", players.length);
         // send players
-        io.emit('serverToClientUpdateInfo', [players, socket.id]);
-
+        io.emit('serverToClientUpdateInfo', [players, newPlayer.turnNum, newPlayer.socketId]);
+        io.to(newPlayer.socketId).emit('serverToClientSocketId', newPlayer.socketId);
 
     })
+    socket.on('clientToServerPlayerTargeted', function (msg) {
+        console.log("targeted Player:", msg);
+        io.to(msg).emit('serverToClientDrink');
 
+    });
 
     socket.on('disconnect', function () {
         console.log('A player disconnected');
