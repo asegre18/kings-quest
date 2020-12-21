@@ -204,7 +204,7 @@ const Table = () => {
                                         return (
                                             <ListItem
                                                 style={{backgroundColor: "rgba(187,72,72,0.49)"}}>
-                                                <ListItemText primary={player.socketId}/>
+                                                <ListItemText primary={player.nickname}/>
                                             </ListItem>
                                         )
                                     } else {
