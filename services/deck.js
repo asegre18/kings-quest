@@ -80,7 +80,7 @@ class Deck {
     constructor() {
         this.deck = [];
         this.reset();
-        // this.shuffle();
+        this.shuffle();
         this.deal();
     }
 

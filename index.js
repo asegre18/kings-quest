@@ -43,6 +43,7 @@ function next_turn(){
         if (players.length > 0) {
             if (deck.deck.length === 0) {
                 deck.reset();
+                deck.shuffle();
             }
             card = deck.deal();
             console.log(players[_turn]);

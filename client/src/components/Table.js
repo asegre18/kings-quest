@@ -3,7 +3,7 @@ import {PlayingCard} from "./Card";
 import io from 'socket.io-client';
 import {Container, Grid, List, ListItem, ListItemText, Snackbar} from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -18,28 +18,11 @@ const Table = () => {
     const [isTurn, setIsTurn] = useState(false);
     const [isDrink, setIsDrink] = useState(false);
     const [isSelecting, setIsSelecting] = useState(false);
-    const [turn, setTurn] = useState(0);
-    const [showCard, setShowCard] = useState(0);
+    const [rule, setRule] = useState(0);
+    const [targetPlayer, setTargetPlayer] = useState('');
     const [playerArr, setPlayerArr] = useState([]);
     const [sock, setSock] = useState('');
     const playerNickname = localStorage.getItem('nickname') || 'kojin';
-
-    let playersArray = [{
-        name: "Allie",
-        turnNum: 0
-    },
-        {
-            name: "Jordan",
-            turnNum: 1
-        },
-        {
-            name: "Andrew",
-            turnNum: 0
-        },
-        {
-            name: "Kojin",
-            turnNum: 0
-        }];
 
     useEffect(() => {
         // socket welcome: adds player to array
@@ -55,29 +38,26 @@ const Table = () => {
         socket.on('not_your_turn', ([_turn, card]) => {
             console.log('other player drew:', card);
             setCurrentCard(card);
-            setIsDrink(true);
+            setIsSelecting(false)
+            setIsDrink(false);
             setIsTurn(false);
-
+            setRule(card.visVal);
+            uDrink(rule.visVal);
         })
 
         // connection to wait for turn
         socket.on('your_turn', (msg) => {
+            setIsSelecting(false)
             setIsDrink(false);
             // Client side log displaying card
             setIsTurn(true);
             console.log("my turn: ", msg);
             setCurrentCard(msg);
-            //     wait,
-
-            //    return rule to server
+            setRule(msg.visVal);
+            iDrink(msg.visVal);
         })
 
         // logic for switch case rules
-
-        const ruleSetter = (card) => {
-            console.log(card.visVal, card.suit);
-            socket.emit('ruleToServer', card.visVal);
-        }
 
 
         return function () {
@@ -88,54 +68,140 @@ const Table = () => {
         }
     }, []);
 
+    const uDrink = (rule) => {
+        switch (rule) {
+            case 1:
+                // everyone drink
+                setIsDrink(true);
+                break;
+
+
+            case 2:
+            // pick someone to drink
+
+            case 3:
+                // self drink
+
+
+
+            case 4:
+            // *hit down key
+            case 5:
+                // guys
+
+
+            case 6:
+                // chicks
+
+            case 7:
+            // *hit up key
+
+            case 8:
+                // pick someone to drink
+
+
+            case 9:
+            // *hit left key
+
+            case 10:
+                // everyone drinks
+
+
+            case 11:
+            // *hit right key
+
+            case 12:
+                // Finish the cup
+
+
+            case 13:
+            // *lowest amount of drinks
+
+        }
+        // console.log(card.visVal, card.suit);
+        // socket.emit('ruleToServer', card.visVal);
+    }
+
+    const iDrink = (rule) => {
+        switch (rule) {
+            case 1:
+                // everyone drink
+                setIsDrink(true);
+                break;
+
+
+            case 2:
+            // pick someone to drink
+                setIsSelecting(true);
+                break;
+            case 3:
+                // self drink
+                setIsDrink(true);
+                break;
+
+            case 4:
+            // *hit down key
+                break;
+            case 5:
+                // guys
+                setIsDrink(true);
+                break;
+
+            case 6:
+                // chicks
+                setIsDrink(true);
+                break;
+            case 7:
+            // *hit up key
+                break;
+            case 8:
+                // pick someone to drink
+                setIsDrink(true);
+                setIsSelecting(true);
+                break;
+
+            case 9:
+            // *hit left key
+                break;
+
+            case 10:
+                // everyone drinks
+                setIsDrink(true);
+                break;
+
+            case 11:
+            // *hit right key
+                break;
+
+            case 12:
+                // Finish the cup
+                setIsDrink(true);
+                break;
+
+            case 13:
+            // *lowest amount of drinks
+                break;
+        }
+        // console.log(card.visVal, card.suit);
+        // socket.emit('ruleToServer', card.visVal);
+    }
+
     const renderClickableList = () => {
         console.log();
     }
 
-    const renderSnack = () => {
-        return (<div>
-            <Snackbar open={isDrink} autoHideDuration={3000}>
-                <Alert severity="success">
-                    Drink!
-                </Alert>
-            </Snackbar>
-        </div>)
-    }
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setIsDrink(false);
+    };
+
 
     const renderSwitch = (card) => {
         console.log(card.visVal);
-        switch(card.visVal) {
-            case 1:
-                // ruleSetter(card);
 
-               renderSnack();
-            case 2:
-                // setIsSelecting(true);
-                renderSnack();
-            case 3:
-                renderSnack();
-            case 4:
-                renderSnack();
-            case 5:
-                renderSnack();
-            case 6:
-                renderSnack();
-            case 7:
-                renderSnack();
-            case 8:
-                // setIsSelecting(true);
-                renderSnack();
-            case 9:
-                renderSnack();
-            case 10:
-                renderSnack();
-            case 11:
-                renderSnack();
-            case 12:
-                renderSnack();
-            case 13:
-                renderSnack();
-        }
     }
 
 
@@ -144,33 +210,44 @@ const Table = () => {
             <Container maxWidth="xl">
                 <Grid>
                     <Grid item xs={3}>
+                        <p>{rule}</p>
                         <List component="nav" aria-label="contacts">
                             {playerArr?.map(player => {
-                                if (player.socketId === sock) {
-                                    return (
-                                        <ListItem
-                                            style={{backgroundColor: "rgba(187, 72, 72, 0.49)"}}>
-                                            <ListItemText primary={player.nickname}/>
-                                        </ListItem>
-                                    )
-                                } else {
-                                    return (
-                                        <ListItem
-                                            style={{backgroundColor: 'white'}}>
-                                            <ListItemText primary={player.nickname}/>
-                                            {
-                                                isSelecting && isTurn ? <button>Send Drink</button> : <button disabled>Send Drink</button>
-                                            }
-                                        </ListItem>
+                                    if (player.socketId === sock) {
+                                        return (
+                                            <ListItem
+                                                style={{backgroundColor: "rgba(187,72,72,0.49)"}}>
+                                                <ListItemText primary={player.nickname}/>
+                                            </ListItem>
                                         )
+                                    } else {
+                                        return (
+                                            <ListItem
+                                                style={{backgroundColor: 'white'}}>
+                                                <ListItemText primary={player.nickname}/>
+                                                {
+                                                    isSelecting && isTurn ? <button>Send Drink</button> :
+                                                        <button disabled onClick={
+                                                            (e) => {
+                                                                setTargetPlayer(player.socket);
+                                                                console.log(player.socket);
+                                                        }
+                                                        }>Send Drink</button>
+                                                }
+                                            </ListItem>
+                                        )
+                                    }
                                 }
-                            }
                             )
                             }
 
                         </List>
                         <div>
-                            {isTurn ? null : renderSwitch(currentCard)}
+                            <Snackbar open={isDrink} autoHideDuration={1000}>
+                                <Alert onClose={handleClose} severity="warning">
+                                    Drink!
+                                </Alert>
+                            </Snackbar>
                         </div>
                     </Grid>
 
