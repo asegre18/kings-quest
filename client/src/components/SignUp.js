@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import  { input, select, textarea } from 'react';
 import { compose } from 'redux';
 import { setViewerToken } from '../pages/Viewer';
+import UncontrolledComponentDemo from './Radio';
 
 // const  { DOM: { input, select, textarea } } = React;
 // The Field components job is to render out input html
@@ -72,20 +73,23 @@ class SignUp extends Component {
         <Container maxWidth="xs">
 
         <Grid container spacing={3} direction="row" justify="space-evenly" alignItems="center">
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <Field
               name='email'
               label='email'
               component={TextFieldInput}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <Field
               name='password'
               label='password'
               component={TextFieldInput}
             />
           </Grid>
+          <Grid item xs={4}> <p style={{
+            fontSize: '.3em',
+          }}>Password must be 6 characters minimum</p></Grid>
           <Grid item xs={12}>
             <Field
               name='nickname'
@@ -94,11 +98,21 @@ class SignUp extends Component {
             />
           </Grid>
           <Grid item xs={12}>
-              <label>Gender</label>
-              <div>
-                <label><Field name="gender" component='input' type="radio" value={0} /> Male</label>
+              <label style={{ 
+                alignContent: 'center',
+                marginLeft: '35%',
+                fonSize: '1.7em',
+                color: '#3F51B5',
+                fontWeight: 700,
+                marginBottom: '30px',
+              }}>Gender</label>
+              <div style={{
+                marginTop: '30px',
+              }}>
+                 <label><Field name="gender" component='input' type="radio" value={0} /> Male</label>
                 <label><Field name="gender" component='input'  type="radio" value={1} /> Female</label>
                 <label><Field name="gender" component='input'  type="radio" value={2} /> Other/Prefer not to say</label>
+               
               </div>
           </Grid>
           <Grid item xs={12}>
@@ -126,7 +140,9 @@ class SignUp extends Component {
             </Grid> */}
           </Grid>
           <Grid item xs={12} flexGrow={1}>
-            <Button
+            <Button style={{
+              marginLeft: '30%',
+            }}
               onClick={ handleSubmit(this.handleSignUp) }
               variant="contained"
               color="primary">
