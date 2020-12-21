@@ -211,7 +211,7 @@ const Table = () => {
                                         return (
                                             <ListItem
                                                 style={{backgroundColor: 'white'}}>
-                                                <ListItemText primary={player.socketId}/>
+                                                <ListItemText primary={player.nickname}/>
                                                 {
                                                     isSelecting && isTurn ? <button onClick={
                                                             (e) => {
