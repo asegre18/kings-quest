@@ -25,6 +25,7 @@ const Table = () => {
     const [playerArr, setPlayerArr] = useState([]);
     const [sock, setSock] = useState('');
     const playerNickname = localStorage.getItem('nickname') || 'kojin';
+    const [numTurn, setNumTurn] = useState(0);
     useEffect(() => {
         // socket welcome: adds player to array
         socket.emit('clientToServerWelcome', playerNickname);
@@ -32,6 +33,7 @@ const Table = () => {
         socket.on('serverToClientUpdateInfo', ([players, turnNum, socketId]) => {
             console.log(players, socketId);
             setPlayerArr(players);
+            setNumTurn(turnNum);
         });
 
         socket.on('serverToClientSocketId', (socketId) =>{
@@ -197,7 +199,7 @@ const Table = () => {
             <Container maxWidth="xl">
                 <Grid>
                     <Grid item xs={3}>
-                        <p>{rule}</p>
+                    <p> {playerNickname} drew a  {rule}</p>
                         <List component="nav" aria-label="contacts">
                             {playerArr?.map(player => {
                                     if (player.socketId === sock) {
