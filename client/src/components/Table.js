@@ -75,7 +75,6 @@ const Table = () => {
             socket.removeListener('serverToClientUpdateInfo');
             socket.removeListener('your_turn');
             socket.removeListener('not_your_turn');
-            // socket.removeListener('not_your_turn');
         }
     }, []);
 
@@ -199,7 +198,15 @@ const Table = () => {
             <Container maxWidth="xl">
                 <Grid>
                     <Grid item xs={3}>
-                    <p> {playerNickname} drew a  {rule}</p>
+                    {/* {playerArr?.map(player => {
+                                    if (player.socketId === sock) {
+                                        return (
+                                            <p> {player.nickname} drew a  {rule}</p>
+                                        )
+                                    }
+                                }
+                            )} */}
+                            <p> {playerNickname} drew a  {rule}</p>
                         <List component="nav" aria-label="contacts">
                             {playerArr?.map(player => {
                                     if (player.socketId === sock) {
